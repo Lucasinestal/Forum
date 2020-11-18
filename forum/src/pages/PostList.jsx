@@ -1,25 +1,31 @@
-import React,{useState, useEffect} from 'react'
-
-const root_url = "https://lab.willandskill.eu"
+import React,{useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+import { fetchPosts } from './../apiCalls'
 
 export default function PostList() {
-    const postsPath = `${root_url}/api/v1/forum/posts/`;
+
     const [postsData, setPostsData] = useState(null)
 
-    function fetchPosts(){
-        fetch(postsPath)
-        .then( res => res.json())
-        .then( data => setPostsData(data))
-        .then(console.log(postsData))
-    }
-
-    useEffect( () => {
+    useEffect(() => {
         fetchPosts()
-    },[])
-    
+        .then( res => res.json())
+        .then((data) => {
+            setPostsData(data.results)
+        })
+      },[]);
+
     return (
         <div>
-            <h1>Post List Page</h1>
+            <Link to="/posts/create"><button>Create Post</button></Link>
+            {postsData && postsData.map((post, index) => {
+            return <div key={index}>
+                    <h3>{post.title}</h3>
+                    <p>{post.content}</p>
+                    <Link to={`/posts/${post.id}`}>
+                        <button>Read More</button>
+                    </Link>
+                </div>
+            })}
         </div>
     )
 }
