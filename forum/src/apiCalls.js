@@ -1,16 +1,14 @@
 const root_url = "https://lab.willandskill.eu";
-const get_posts_url = `${root_url}/api/v1/forum/posts/`;
+const posts_url = `${root_url}/api/v1/forum/posts/`;
 const auth_url = `${root_url}/api/v1/auth/api-token-auth/`;
 const register_url = `${root_url}/api/v1/auth/users/`
 const get_countries_url  = `${root_url}/api/v1/countries/`
 const params_url = `${root_url}/api/v1/forum/`
+const me_url = `${root_url}/api/v1/me/`
+const get_categories_url = `${root_url}/api/v1/forum/categories/`
 
 //Login
-export function authenticateUser(){
-    const payload = {
-        email: "pelle@willandskill.se",
-        password: "pellesvanslos"
-    }
+export function authenticateUser(payload){
     return fetch(auth_url,{
         method: 'POST',
         body: JSON.stringify(payload),
@@ -18,19 +16,14 @@ export function authenticateUser(){
             "Content-type": "application/json"
         }
     })
-    .then(res => res.json())
-    .then(data => {
-        const {token} = data;
-        localStorage.setItem("token", token)
-    })
 }
 
 //getPosts
 export function fetchPosts(){
-   return fetch(get_posts_url, {
+   return fetch(posts_url, {
      headers: {
          'Content-Type': 'application/json',
-         Authorization: `Bearer ${ localStorage.getItem("token")}`,
+         Authorization: `Bearer ${ localStorage.getItem("token")}`
      }
  })
 }
@@ -51,16 +44,57 @@ export function fetchCountries(){
     return fetch(get_countries_url, {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem("token")}`,
+            Authorization: `Bearer ${ localStorage.getItem("token")}`
         }
     })
 }
 
-export async function fetchPostDetails(id){
-    return await fetch(`${params_url}${id}`, {
+//getPostDetails
+export function fetchPostDetails(id){
+    return fetch(`${params_url}${id}`, {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem("token")}`,
+            Authorization: `Bearer ${ localStorage.getItem("token")}`
+        }
+    })
+}
+
+export function fetchPostReplies(id){
+    return fetch(`${params_url}/api/v1/forum/posts/${id}/replies`, {
+        header: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${ localStorage.getItem("token")}`
+        }
+    })
+}
+
+//fetchMe
+export function fetchMe(){
+    return fetch(me_url, {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${ localStorage.getItem("token")}`
+        }
+    })
+}
+
+export function fetchCategories(){
+    return fetch(get_categories_url, {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${ localStorage.getItem("token")}`
+        }
+        })
+}
+
+//createPost 
+export function createPost(payload){
+    return fetch(posts_url, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${ localStorage.getItem("token")}`
         }
     })
 }
