@@ -6,9 +6,9 @@ export default function SelectFields(props) {
     return (
        <>
        <select onChange={props.onChange} type={props.type} defaultValue={'DEFAULT'}>
-            <option value="DEFAULT" disabled>Select Country</option>
-            {props.countries && props.countries.map((countries, index) => {
-            return <option key={index} value={countries.id}>{countries.title}</option> 
+            <option value="DEFAULT" disabled>{props.defaultValue}</option>
+            {props.values && props.values.map((values, index) => {
+            return <option key={index} value={values.id}>{values.title}</option> 
             })}
         </select>
        </>

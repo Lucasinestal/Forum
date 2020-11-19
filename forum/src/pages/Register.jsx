@@ -3,34 +3,44 @@ import React,{useState, useEffect} from 'react'
 import InputFields from './../components/InputFields'
 import BtnRegister from './../components/btnRegister'
 import SelectFields from './../components/SelectFields'
-import { registerUser, fetchCountries } from './../apiCalls'
+import { registerUser, fetchvalues, fetchCountries } from './../apiCalls'
 
 
 export default function Register(props) {
-    const [email, setEmail] = useState({});
-    const [password, setPassword] = useState('');
-    const [confirmedPassword, setConfirmedPassword] = useState('');
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('');
+   
     const [country, setCountry] = useState({})
-    const [countries, setCountries] = useState([])
+    const [values, setvalues] = useState([])
+
+    const [state, setState] = useState({
+        email: {},
+        password: "",
+        confirmedPassword: "",
+        firstName: "",
+        lastName: ""
+    })
+
+    function handleChange(event) {
+        const value = event.target.value
+        setState({
+            ...state,
+        [event.target.name]: value
+        });
+        
+      }
 
 
     function handleSubmit(event){
         event.preventDefault();
         const payload = {
-            email,
-            password,
-            country,
-            firstName,
-            lastName,
+            ...state,
+            country
         };    
             try{
                 registerUser(payload)
                 .then((res) => {
                     if(res.status === 400){
                         res.json().then((data) => {
-                            props.history.push("/register")
+                            event.target.reset();
                             console.log(data)
                             
                         });
@@ -51,7 +61,7 @@ export default function Register(props) {
         fetchCountries()
         .then( res => res.json())
         .then((data) => {
-            setCountries(data.results)
+            setvalues(data.results)
         })
       },[]);
 
@@ -62,47 +72,49 @@ export default function Register(props) {
                 <InputFields
                     type="email"
                     name="email"
-                    value={email}
+                    value={state.email}
                     placeholder="Email"
-                    onChange={ (event) => setEmail(event.target.value)}
+                    onChange={handleChange}
                     required 
                 />
                 <InputFields
                     type="password"
                     name="password"
-                    value={password}
+                    value={state.password}
                     placeholder="Password"
-                    onChange= {(event) => setPassword(event.target.value)}
+                    onChange={handleChange}
                     required 
                 />
                 <InputFields
                     type="password"
                     name="confirmedPassword"
-                    value={confirmedPassword}
+                    value={state.confirmedPassword}
                     placeholder="Confirm Password" 
-                    onChange= {(event) => setConfirmedPassword(event.target.value)}
+                    onChange={handleChange}
                     required
                 />
                 <InputFields 
                     type="text"
-                    name="firstname"
-                    value={firstName}
+                    name="firstName"
+                    value={state.firstName}
                     placeholder="First Name"
-                    onChange= {(event) => setFirstName(event.target.value)}
+                    onChange={handleChange}
                     required
                 />
                 <InputFields
                     type="text"
-                    name="lastname"
-                    value={lastName}
+                    name="lastName"
+                    value={state.lastName}
                     placeholder="Last Name"
-                    onChange={(event) => setLastName(event.target.value)}
+                    onChange={handleChange}
                     required 
                 />
                 <SelectFields
                     type="select-one"
-                    countries={countries}
-                    value={country}
+                    name="country"
+                    defaultValue="Select Country"
+                    values={values}
+                    value={state.country}
                     onChange={(event) => setCountry(event.target.value)}
                 />
                 <BtnRegister 
