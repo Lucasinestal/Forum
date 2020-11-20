@@ -6,7 +6,7 @@ import PostCreate from './pages/PostCreate';
 import PostDetail from './pages/PostDetail';
 import PostList from './pages/PostList';
 import Register from './pages/Register';
-import Header from './components/Header';
+import Header from './components/header';
 import Auth from './Auth';
 import styled,{ createGlobalStyle } from 'styled-components'
 

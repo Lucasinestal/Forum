@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Auth from './../Auth';
+import Auth from '../Auth';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
