@@ -3,21 +3,34 @@ import InputFields from './../components/InputFields'
 import { authenticateUser } from './../apiCalls'
 import BtnRegister from './../components/btnRegister'
 import styled from 'styled-components'
- 
-const LoginContainer = styled.div`
-    display:flex;;
+import ErrorMsg from './../components/ErrorMessage'
+
+
+export const LoginContainer = styled.div`
+    display:flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-top: 10rem;
+    margin-top: 4rem;
+    @media (min-width: 550px) {
+        max-width: 550px;
+        padding: 30px;
+        border-radius: 10px;
+      }
 `
-const LoginForm = styled.form`
+export const LoginForm = styled.form`
 display:flex;
 flex-direction: column;
 width: 100%;
-justify-content: center;
 
 `
+
+export const Wrapper = styled.div`
+display: flex;
+justify-content:center;
+align-items:center;`
+
+
+
 
 
 export default function Login(props) {
@@ -48,7 +61,7 @@ export default function Login(props) {
                     res.json().then((data) => {
                         event.target.reset();
                         console.log(data)
-                        setErrorMsg('Unable to log in with provided credentials')
+                        setErrorMsg('Unable to log in with provided credentials!')
                     });
                     return;
                 }
@@ -68,9 +81,10 @@ export default function Login(props) {
 
 
     return (
+        <Wrapper>
         <LoginContainer>
             <h1>Login</h1>
-            <LoginForm onSubmit={handleSubmit}>
+            <LoginForm onSubmit={handleSubmit} autoComplete="off">
                 <div>
                     <InputFields 
                     type="email"
@@ -93,12 +107,13 @@ export default function Login(props) {
 
                    {errorMsg && (( 
                   
-                    <div >
+                    <ErrorMsg className="errorMessage" value={errorMsg}>
                     {errorMsg}{''}
-                    </div>
+                    </ErrorMsg>
                    
                    ))}
             </LoginForm>
         </LoginContainer>
+        </Wrapper>
     )
 }

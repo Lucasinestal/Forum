@@ -11,12 +11,22 @@ import Auth from './Auth';
 import styled,{ createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
+  * { 
+  padding :0;
+  margin: 0;
+}
+
   body {
       background-color: #272727;
       color: white;
       display:flex;
       flex-direction: column;
   }
+  .App {
+    display: flex;
+    flex-direction: column;
+  }
+
  
   ::placeholder {
       color: #747474;
@@ -46,6 +56,12 @@ const GlobalStyles = createGlobalStyle`
   a{
     color: transparent;
   }
+
+  .errorMessage {
+    background:color: white;
+  }
+
+
 `
 
 

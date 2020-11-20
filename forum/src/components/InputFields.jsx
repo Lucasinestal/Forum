@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Input = styled.input`
     border: none;
     border-bottom: 4px solid #FF652F;
-    margin: 5px 10px;
+    margin:15px 10px;
     border-radius: 4px;
     padding: 10px;
     background-color: #272727;
@@ -19,7 +19,7 @@ export default function InputFields(props) {
     return (
        <>
        <Input
-       type={props.text} 
+       type={props.type} 
        name={props.name} 
        placeholder={props.placeholder}
        placeholderTextColor="black"

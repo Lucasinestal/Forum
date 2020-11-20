@@ -3,8 +3,20 @@ import React,{useState, useEffect} from 'react'
 import InputFields from './../components/InputFields'
 import BtnRegister from './../components/btnRegister'
 import SelectFields from './../components/SelectFields'
-import { registerUser, fetchvalues, fetchCountries } from './../apiCalls'
+import { registerUser, fetchCountries } from './../apiCalls'
+import styled from 'styled-components'
+import { LoginContainer, Wrapper, LoginForm } from './Login'
+import ErrorMessage from './../components/ErrorMessage'
 
+const RegisterContainer = styled(LoginContainer)`
+margin-top: 4rem;
+`
+
+const RegisterWrapper = styled(Wrapper)`
+
+`
+const RegisterForm = styled(LoginForm)`
+`
 
 export default function Register(props) {
    const [errorMsg, setErrorMsg] = useState("")
@@ -66,9 +78,10 @@ export default function Register(props) {
       },[]);
 
     return (
-        <div>
+        <RegisterWrapper>
+        <RegisterContainer>
             <h1>Register Page</h1>
-            <form onSubmit={handleSubmit}>
+            <RegisterForm onSubmit={handleSubmit}>
                 <InputFields
                     type="email"
                     name="email"
@@ -123,13 +136,14 @@ export default function Register(props) {
                 />
                    {errorMsg && (( 
                   
-                  <div >
+                  <ErrorMessage value={errorMsg}>
                   {errorMsg}{''}
-                  </div>
+                  </ErrorMessage>
                  
                  ))}
-             </form>
-        </div>
+             </RegisterForm>
+        </RegisterContainer>
+        </RegisterWrapper>
     )
 }
 
