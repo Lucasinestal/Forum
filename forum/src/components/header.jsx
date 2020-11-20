@@ -1,16 +1,47 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
+import Auth from './../Auth';
+import styled from 'styled-components';
 
-export default function header() {
+const HeaderContainer = styled.div`
+    display:flex;
+    flex-direction: flex-row;
+    aLign-items: center;
+    height: 50px;
+    border-bottom: 4px soLid #FF652F;
+    width: 100%;
+    margin: 0;
+`
+const Ul = styled.ul`
+display:flex;
+flex-direction: flex-row;
+List-style: none;`
+
+const Li = styled.li`
+color:#FF652F;
+margin: 5px;
+font-family: 'Quicksand-medium', sans-serif;
+`
+
+
+export default function Header() {
+
+
+     function logout(){
+        Auth.signout();
+        }
+
     return (
-        <div>
-            <ul>
-                <Link to="/home"><li>Home</li></Link>
-                <Link to="/posts"><li>Posts</li></Link>
-                <Link to="/register"><li>Register</li></Link>
-                <Link to="/login"><li>Login</li></Link>
-                <Link to="/login"><li>Logout</li></Link>
-            </ul>
-        </div>
+        <HeaderContainer>
+        <h2>Forum</h2>
+
+            <Ul>
+                <Link to="/home"><Li>Home</Li></Link>
+                <Link to="/posts"><Li>Posts</Li></Link>
+                <Link to="/register"><Li>Register</Li></Link>
+                <Link to="/login"><Li>Login</Li></Link>
+                <Link to="/login"><Li onCLick={logout}>Logout</Li></Link>
+            </Ul>
+        </HeaderContainer>
     )
 }

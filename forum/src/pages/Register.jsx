@@ -7,7 +7,7 @@ import { registerUser, fetchvalues, fetchCountries } from './../apiCalls'
 
 
 export default function Register(props) {
-   
+   const [errorMsg, setErrorMsg] = useState("")
     const [country, setCountry] = useState({})
     const [values, setvalues] = useState([])
 
@@ -42,7 +42,7 @@ export default function Register(props) {
                         res.json().then((data) => {
                             event.target.reset();
                             console.log(data)
-                            
+                            setErrorMsg("Unable to register account with provided credentials")
                         });
                         return;
                     }
@@ -121,6 +121,13 @@ export default function Register(props) {
                     type="submit"
                     text="Register"
                 />
+                   {errorMsg && (( 
+                  
+                  <div >
+                  {errorMsg}{''}
+                  </div>
+                 
+                 ))}
              </form>
         </div>
     )

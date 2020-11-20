@@ -1,4 +1,4 @@
-const root_url = "https://lab.willandskill.eu";
+const root_url = 'https://lab.willandskill.eu';
 const posts_url = `${root_url}/api/v1/forum/posts/`;
 const auth_url = `${root_url}/api/v1/auth/api-token-auth/`;
 const register_url = `${root_url}/api/v1/auth/users/`
@@ -13,7 +13,7 @@ export function authenticateUser(payload){
         method: 'POST',
         body: JSON.stringify(payload),
         headers: {
-            "Content-type": "application/json"
+            'Content-type': 'application/json'
         }
     })
 }
@@ -23,7 +23,7 @@ export function fetchPosts(){
    return fetch(posts_url, {
      headers: {
          'Content-Type': 'application/json',
-         Authorization: `Bearer ${ localStorage.getItem("token")}`
+         Authorization: `Bearer ${ localStorage.getItem('token')}`
      }
  })
 }
@@ -34,7 +34,7 @@ export function registerUser(payload){
         method: 'POST',
         body: JSON.stringify(payload),
         headers: {
-            "Content-type": "application/json"
+            'Content-type': 'application/json'
         }
     })
 }
@@ -44,7 +44,7 @@ export function fetchCountries(){
     return fetch(get_countries_url, {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem("token")}`
+            //Authorization: `Bearer ${ localStorage.getItem('token')}`
         }
     })
 }
@@ -54,7 +54,7 @@ export function fetchPostDetails(id){
     return fetch(`${params_url}${id}`, {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem("token")}`
+            Authorization: `Bearer ${ localStorage.getItem('token')}`
         }
     })
 }
@@ -63,7 +63,7 @@ export function fetchPostReplies(id){
     return fetch(`${params_url}/api/v1/forum/posts/${id}/replies`, {
         header: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem("token")}`
+            Authorization: `Bearer ${ localStorage.getItem('token')}`
         }
     })
 }
@@ -73,7 +73,7 @@ export function fetchMe(){
     return fetch(me_url, {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem("token")}`
+            Authorization: `Bearer ${ localStorage.getItem('token')}`
         }
     })
 }
@@ -82,7 +82,7 @@ export function fetchCategories(){
     return fetch(get_categories_url, {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${ localStorage.getItem("token")}`
+            Authorization: `Bearer ${ localStorage.getItem('token')}`
         }
         })
 }
@@ -93,8 +93,20 @@ export function createPost(payload){
         method: 'POST',
         body: JSON.stringify(payload),
         headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${ localStorage.getItem("token")}`
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${ localStorage.getItem('token')}`
+        }
+    })
+}
+
+//createReply
+export function createReply(payload){
+    return fetch(posts_url, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${ localStorage.getItem('token')}`
         }
     })
 }

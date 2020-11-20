@@ -2,28 +2,71 @@ import React,{useEffect, useState} from 'react'
 import {fetchPostDetails} from '../apiCalls'
 import BtnCreate from './../components/btnCreate'
 import { Link } from 'react-router-dom'
+import dateFormat from 'dateformat';
+import Modal from './../components/modal'
+import {createReply} from '../apiCalls'
+
 
 export default function PostDetail(props) {
+    const [parent, setParent] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
     const [postDetails, setPostDetails] = useState({});
-    const [postReplies, setPostReplies] = useState({});
+    const [state, setState] = useState({
+        title: "",
+        content: ""
+    })
+  
+    function handleChange(event) {
+      const value = event.target.value
+      console.log(parent)
+      console.log(state)
+      setState({
+          ...state,
+      [event.target.name]: value
+      });
+      
+    }function handleSubmit(event){
+      setParent(props.location.pathname)
+      event.preventDefault();
+      const payload = {
+          ...state,
+          parent 
+      };    
+          try{
+              createReply(payload)
+              .then((res) => {
+                  if(res.status === 400){
+                      res.json().then((data) => {
+                          event.target.reset();
+                          console.log(data)
+                          //setErrorMsg("Unable to publish reply with provided information")
+                      });
+                      return;
+                  }
+                  res.json().then((data) => {
+                      console.log(data)
+                      window.location.reload();
+                  });
+              });
+          } catch(err){
+              console.log("error:" + err)
+          }
+
+        }
     
     useEffect( () => {
-      const id = props.location.pathname
-      fetchPostDetails(id)
+      fetchPostDetails(props.location.pathname)
         .then( res => res.json())
-        .then(  (data) => {
+        .then((data) => {
             setPostDetails(data)
-            console.log(data)
+            var id = props.location.pathname.slice(7);
+            setParent(id)
         })
-        /*fetchPostDetails(id)
-          .then( res => res.json())
-          .then( (data) => {
-            setPostReplies(data)
-            console.log(data)
-          })*/
-      },[]);
-
+      },[props.location.pathname]);
+    
     if(postDetails.author){
+      const formatDate = dateFormat(`${postDetails.updatedAt}`, "mmmm dS, yyyy HH:MM")
+      
       return (
           <div>
               <Link to="/posts">
@@ -31,14 +74,30 @@ export default function PostDetail(props) {
                     text={"All Posts"}
                 ></BtnCreate>
               </Link>
+              <button onClick={() => setIsOpen(!isOpen)}>Reply</button>
+              {isOpen ? (
+                  <Modal 
+                  toggle={() => setIsOpen(!isOpen)}
+                  title="title"
+                  content="content"
+                  value={state}
+                  handleChange={handleChange}
+                  onClick={handleChange}
+                  submit={handleSubmit}
+                  type="submit"
+                  text="Reply"
+                  />
+              ): null }
               <h1>{postDetails.title}</h1>
+              <p>{postDetails.author.firstName} {postDetails.author.lastName} {formatDate} ID: {postDetails.author.id} </p>
               <p>{postDetails.content}</p>
-              <p>{postDetails.updatedAt} {postDetails.author.firstName} {postDetails.author.lastName}</p>
+              <p>Post ID: {postDetails.id} Responses: {postDetails.countResponses} Views: {postDetails.viewCount}</p>
               <div>
-                {postReplies.content}
-              {postDetails.responses && postDetails.responses.map((responses, index) => {
+              {postDetails.responses &&  postDetails.responses.map((responses, index) => {
+                const formatResponseData = dateFormat(`${responses.createdAt}`, "mmmm dS, yyyy HH:MM")
+                
                   return (
-                    <div key={index}>{responses.author.email}
+                    <div key={index}>{responses.author.firstName} {responses.author.lastName} {formatResponseData} ID: {responses.author.id}
                     <p>{responses.title}</p>
                     <p>{responses.content}</p>
                     </div>
@@ -51,4 +110,4 @@ export default function PostDetail(props) {
         <p>Loading..</p>
       )
     }
-}
+  }

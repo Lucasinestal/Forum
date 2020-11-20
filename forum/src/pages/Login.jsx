@@ -2,9 +2,28 @@ import React,{useState} from 'react'
 import InputFields from './../components/InputFields'
 import { authenticateUser } from './../apiCalls'
 import BtnRegister from './../components/btnRegister'
+import styled from 'styled-components'
+ 
+const LoginContainer = styled.div`
+    display:flex;;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+`
+const LoginForm = styled.form`
+display:flex;
+flex-direction: column;
+width: 100%;
+justify-content: center;
+
+`
+
 
 export default function Login(props) {
 
+
+    const [errorMsg, setErrorMsg] = useState("")
     const [state, setState] = useState({
         email: "",
         password: ""
@@ -29,7 +48,7 @@ export default function Login(props) {
                     res.json().then((data) => {
                         event.target.reset();
                         console.log(data)
-                        
+                        setErrorMsg('Unable to log in with provided credentials')
                     });
                     return;
                 }
@@ -47,27 +66,39 @@ export default function Login(props) {
 
     }
 
-   
-
 
     return (
-        <div>
+        <LoginContainer>
             <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <InputFields 
-                type="email"
-                name="email"
-                value={state.email}
-                onChange={handleChange}/>
-                <InputFields 
-                type="password"
-                name="password"
-                value={state.password}
-                onChange={handleChange}/>
+            <LoginForm onSubmit={handleSubmit}>
+                <div>
+                    <InputFields 
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={state.email}
+                    onChange={handleChange}/>
+                </div>
+                <div>
+                    <InputFields 
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={state.password}
+                    onChange={handleChange}/>
+                </div>
                 <BtnRegister
                 text="login" 
                 type="submit"/>
-            </form>
-        </div>
+
+                   {errorMsg && (( 
+                  
+                    <div >
+                    {errorMsg}{''}
+                    </div>
+                   
+                   ))}
+            </LoginForm>
+        </LoginContainer>
     )
 }

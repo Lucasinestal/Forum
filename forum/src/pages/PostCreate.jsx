@@ -10,6 +10,7 @@ import {createPost} from './../apiCalls'
 
 
 export default function PostCreate(props) {
+    const [errorMsg, setErrorMsg] = useState("")
     const [values, setValues] = useState([])
     const [category, setCategory] = useState([])
     const [state, setState] = useState({
@@ -41,6 +42,7 @@ export default function PostCreate(props) {
                         res.json().then((data) => {
                             event.target.reset();
                             console.log(data)
+                            setErrorMsg("Unable to create post with provided information")
                             
                         });
                         return;
@@ -93,6 +95,13 @@ export default function PostCreate(props) {
                     text="Publish" 
                     type="submit"
                 />
+                   {errorMsg && (( 
+                  
+                  <div >
+                  {errorMsg}{''}
+                  </div>
+                 
+                 ))}
             </form>
         </div>
     )
