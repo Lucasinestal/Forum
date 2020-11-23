@@ -9,7 +9,7 @@ border-bottom: 4px solid #FF652F;
 border-radius: 4px;
 box-shadow: 0 8px 6px -6px black;
 padding: 15px 10px;
-
+width: 95%;
 margin: 5px 10px
 `
 export default function SelectFields(props) {

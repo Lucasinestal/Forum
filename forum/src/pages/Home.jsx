@@ -2,11 +2,16 @@ import React,{useEffect, useState} from 'react'
 import { fetchMe, fetchCountries } from './../apiCalls'
 import Rules from './../Rules'
 import styled from 'styled-components'
+import Header from './../components/header'
 
 const HomeWrapper = styled.div`
     display:flex;
+    flex-direction: column;
 `
 
+const UserContainer = styled.div`
+padding: 20px;
+`
 
 export default function Home() {
     const [userData, setUserData] = useState("");
@@ -24,17 +29,19 @@ export default function Home() {
 
     if(userData){
         return (
+            <>
+            <Header />
             <HomeWrapper>
-                <div>
-                <h4>{userData.firstName} {userData.lastName}</h4>
+                <UserContainer>
+                <h3>{userData.firstName} {userData.lastName}</h3>
                 <p>User ID: {userData.id}</p>
                 <p>Email: {userData.email}</p>
-                </div>
+                </UserContainer>
                 <div>
                    <Rules />
                 </div>
             </HomeWrapper>
-            
+            </>
         )
     }else {
 

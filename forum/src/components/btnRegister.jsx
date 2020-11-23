@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Button = styled.button `
+export const Button = styled.button `
 padding: 8px 10rem;
  width: 95%;
  border-radius: 5px;
@@ -17,7 +17,7 @@ export default function btnRegister(props) {
 
     return (
         <>
-        <Button type={props.type}>{props.text}</Button>
+        <Button onClick={props.onClick} type={props.type}>{props.text}</Button>
         </>
     )
 }

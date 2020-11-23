@@ -5,6 +5,16 @@ import SelectFields from './../components/SelectFields'
 import {fetchCategories} from './../apiCalls'
 import BtnRegister from './../components/btnRegister'
 import {createPost} from './../apiCalls'
+import Header from './../components/header'
+import { LoginContainer, Wrapper, LoginForm } from './Login'
+import styled from 'styled-components'
+
+const CreateWrapper = styled(Wrapper)``
+
+const CreateContainer = styled(LoginContainer)``
+
+const CreateForm = styled(LoginForm)``
+
 
 
 
@@ -67,15 +77,25 @@ export default function PostCreate(props) {
       },[]);
 
     return (
-        <div>
-            <h1>Post Create Page</h1>
-            <form onSubmit={handleSubmit}>
+        <>
+        <Header />
+        <CreateWrapper>
+        <CreateContainer>
+            <h1>Create Post</h1>
+            <form onSubmit={handleSubmit} autoComplete="off">
                 <InputFields 
                     onChange={handleChange}
                     name="title"
                     type="text"
                     value={state.title}
-                    placeholder="title"/>
+                    placeholder="Title"/>
+                    <SelectFields 
+                    defaultValue="Select Category"
+                    type="select-one"
+                    name="category"
+                    values={values}
+                    value={state.category}
+                    onChange={(event) => setCategory(event.target.value)}/>
                 <InputArea 
                     onChange={handleChange}
                     name="content"
@@ -84,13 +104,6 @@ export default function PostCreate(props) {
                     rows="8"
                     cols="50"
                     placeholder="Post content.."/>
-                <SelectFields 
-                    defaultValue="Select Category"
-                    type="select-one"
-                    name="category"
-                    values={values}
-                    value={state.category}
-                    onChange={(event) => setCategory(event.target.value)}/>
                 <BtnRegister
                     text="Publish" 
                     type="submit"
@@ -103,6 +116,8 @@ export default function PostCreate(props) {
                  
                  ))}
             </form>
-        </div>
+        </CreateContainer>
+        </CreateWrapper>
+        </>
     )
 }

@@ -4,6 +4,8 @@ import { authenticateUser } from './../apiCalls'
 import BtnRegister from './../components/btnRegister'
 import styled from 'styled-components'
 import ErrorMsg from './../components/ErrorMessage'
+import { Link } from 'react-router-dom' 
+import HeaderLogin from './../components/headerLogin'
 
 
 export const LoginContainer = styled.div`
@@ -30,7 +32,9 @@ justify-content:center;
 align-items:center;`
 
 
-
+const RegisterP = styled.p`
+padding: 10px 20px;
+`
 
 
 export default function Login(props) {
@@ -81,6 +85,8 @@ export default function Login(props) {
 
 
     return (
+        <>
+        <HeaderLogin />
         <Wrapper>
         <LoginContainer>
             <h1>Login</h1>
@@ -104,7 +110,7 @@ export default function Login(props) {
                 <BtnRegister
                 text="login" 
                 type="submit"/>
-
+                <RegisterP>Don't have an account? <Link to="/register">Create one!</Link> </RegisterP>
                    {errorMsg && (( 
                   
                     <ErrorMsg className="errorMessage" value={errorMsg}>
@@ -115,5 +121,6 @@ export default function Login(props) {
             </LoginForm>
         </LoginContainer>
         </Wrapper>
+        </>
     )
 }

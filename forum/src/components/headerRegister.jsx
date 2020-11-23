@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Auth from '../Auth';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
@@ -33,11 +32,6 @@ width: 100%;
 margin: 10px;
 `
 export default function Header() {
-
-
-     function logout(){
-        Auth.signout();
-        }
             
     return (
         <Wrapper>
@@ -47,9 +41,7 @@ export default function Header() {
         </ForumDiv>
         <div>
             <Ul>
-                <Link to="/home"><Li>Home</Li></Link>
-                <Link to="/posts"><Li>Posts</Li></Link>
-                <Link to="/login"><Li onClick={logout}>Logout</Li></Link>
+                <Link to="/login"><Li>Login</Li></Link>
             </Ul>
         </div>
         </HeaderContainer>

@@ -4,7 +4,10 @@ import BtnCreate from './../components/btnCreate'
 import { Link } from 'react-router-dom'
 import dateFormat from 'dateformat';
 import Modal from './../components/modal'
+import Header from './../components/header'
 import {createReply} from '../apiCalls'
+import BtnRegister from './../components/btnRegister'
+import Loader from 'react-loader-spinner'
 
 
 export default function PostDetail(props) {
@@ -15,6 +18,7 @@ export default function PostDetail(props) {
         title: "",
         content: ""
     })
+
   
     function handleChange(event) {
       const value = event.target.value
@@ -68,14 +72,9 @@ export default function PostDetail(props) {
       const formatDate = dateFormat(`${postDetails.updatedAt}`, "mmmm dS, yyyy HH:MM")
       
       return (
-          <div>
-              <Link to="/posts">
-                  <BtnCreate
-                    text={"All Posts"}
-                ></BtnCreate>
-              </Link>
-              <button onClick={() => setIsOpen(!isOpen)}>Reply</button>
-              {isOpen ? (
+        <>
+        <div>
+         {isOpen ? (
                   <Modal 
                   toggle={() => setIsOpen(!isOpen)}
                   title="title"
@@ -85,13 +84,22 @@ export default function PostDetail(props) {
                   onClick={handleChange}
                   submit={handleSubmit}
                   type="submit"
-                  text="Reply"
+                  text="Publish"
                   />
+                  
               ): null }
+          
+            <Header />
+              <Link to="/posts">
+                  <BtnCreate
+                    text={"All Posts"}
+                ></BtnCreate>
+              </Link>
               <h1>{postDetails.title}</h1>
               <p>{postDetails.author.firstName} {postDetails.author.lastName} {formatDate} ID: {postDetails.author.id} </p>
               <p>{postDetails.content}</p>
               <p>Post ID: {postDetails.id} Responses: {postDetails.countResponses} Views: {postDetails.viewCount}</p>
+              <BtnRegister onClick={() => setIsOpen(!isOpen)} text="Reply"></BtnRegister>
               <div>
               {postDetails.responses &&  postDetails.responses.map((responses, index) => {
                 const formatResponseData = dateFormat(`${responses.createdAt}`, "mmmm dS, yyyy HH:MM")
@@ -104,10 +112,18 @@ export default function PostDetail(props) {
                   )})}
               </div>
           </div>
+          </> 
       )
   } else {
       return (
-        <p>Loading..</p>
+        <Loader className="loader"
+            type="Audio"
+            color="#FF652F"
+            height="25vh"
+            width="25wv"
+            timeout={3000} //3 secs
+    
+         />
       )
     }
   }

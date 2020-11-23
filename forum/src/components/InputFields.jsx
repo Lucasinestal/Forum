@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Input = styled.input`
+export const Input = styled.input`
     border: none;
     border-bottom: 4px solid #FF652F;
     margin:15px 10px;

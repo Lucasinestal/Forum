@@ -7,6 +7,7 @@ import { registerUser, fetchCountries } from './../apiCalls'
 import styled from 'styled-components'
 import { LoginContainer, Wrapper, LoginForm } from './Login'
 import ErrorMessage from './../components/ErrorMessage'
+import HeaderRegister from './../components/headerRegister'
 
 const RegisterContainer = styled(LoginContainer)`
 margin-top: 4rem;
@@ -60,7 +61,7 @@ export default function Register(props) {
                     }
                     res.json().then((data) => {
                         console.log(data)
-                        props.history.push("/login")
+                        props.history.push("/")
                     });
                 });
             } catch(err){
@@ -78,10 +79,12 @@ export default function Register(props) {
       },[]);
 
     return (
+        <>
+        <HeaderRegister />
         <RegisterWrapper>
         <RegisterContainer>
             <h1>Register Page</h1>
-            <RegisterForm onSubmit={handleSubmit}>
+            <RegisterForm onSubmit={handleSubmit} autoComplete="off">
                 <InputFields
                     type="email"
                     name="email"
@@ -144,6 +147,7 @@ export default function Register(props) {
              </RegisterForm>
         </RegisterContainer>
         </RegisterWrapper>
+        </>
     )
 }
 

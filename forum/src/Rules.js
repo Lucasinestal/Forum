@@ -10,13 +10,21 @@ const H4 = styled.h4`
 `
 
 const H3 = styled(H4)`
-margin-top: 6rem;
+margin-top: 3rem;
+`
+
+const RulesWrapper = styled.div`
+padding: 10px;
+width: 90%%;
+display:flex;
+flex-direction: column;
+align-content: flex-end;
 `
 
 export default function Rules() {
     return (
-        <div>
-            <P> <H3>Regler</H3>
+        <RulesWrapper>
+             <H3>Regler</H3>
             <div><P>
                 Den som bryter mot någon av reglerna riskerar varning, avstängning eller permanent bannlysning.
 
@@ -40,7 +48,7 @@ export default function Rules() {
                 <div>
                    <H4>1.04. Uppvigling och hot</H4> 
                     <P>Uppvigling och grövre hot är förbjudet. Det är också förbjudet att organisera brottslig verksamhet från forumet.</P>
-                </div></P>  
-        </div>
+                </div> 
+        </RulesWrapper>
     )
 }

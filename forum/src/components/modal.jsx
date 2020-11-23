@@ -1,23 +1,46 @@
 import React from 'react'
 import styled from 'styled-components'
+import TextArea from './InputArea'
+import { LoginContainer, Wrapper } from './../pages/Login'
+import InputFields from './../components/InputFields'
+import BtnRegister from './../components/btnRegister'
 
-const ModalContainer = styled.div`
+/*const ModalContainer = styled.div`
 background-color: white;
 width: 400px;
 border: 1px solid grey;
 display: flex;
 flex-direction: column;
 align-items: center;
-position: fixed;
-top: 50%;
-left: 50%;
+height: 100vh;
+width: 100vw;
+margin-top: 6rem;
+
+`*/
+
+const ModalContainer = styled(LoginContainer)`
+border: 1px solid black;
+height: 60vh;
+background: #272727;
+margin-top: -6rem;
+box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+border-radius: 15px;
+
 `
 
 const ModalCloseBtn = styled.button`
 width: 25px;
 display:flex
 justify-content: flex-start;
-margin: 0px 0px 5px 375px
+position: sticky;
+bottom: 100%;
+left 100%;
+background-color: #272727;
+border:none;
+border-radius: 15px;
+font-size: 25px;
+color: white;
+margin: 0;
 `
 
 const ModalInputsContainer = styled.div`
@@ -25,22 +48,31 @@ display: flex
 flex-direction: column;
 justify-content:center;`
 
-const StyledInput = styled.input`
+
+const StyledTextArea = styled(TextArea)`
+width: 100%;
+
 `
 
-const StyledTextArea = styled.textarea`
-
+const ModalWrapper = styled(Wrapper)`
+z-index: 1000;
+background: rgba(0, 0, 0, 0.3);
+position: absolute;
+width: 100%;
+height: 100%;
 `
 
 
 export default function modal(props) {
   return (
+    <ModalWrapper>
     <ModalContainer>
       <ModalCloseBtn onClick={props.toggle}>x</ModalCloseBtn>
+      <h2>Create Reply</h2>
       <form onSubmit={props.submit}>
       <ModalInputsContainer>
         <div>
-        <StyledInput 
+        <InputFields 
           placeholder="Title"
           name={props.title} 
           value={props.value.title}
@@ -57,9 +89,10 @@ export default function modal(props) {
         </div>
       </ModalInputsContainer>    
       <div>
-        <button type={props.type}>{props.text}</button>
+        <BtnRegister type={props.type} text={props.text}></BtnRegister>
       </div>
       </form>
     </ModalContainer>
+    </ModalWrapper>
   )
 }

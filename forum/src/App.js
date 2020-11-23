@@ -47,20 +47,31 @@ const GlobalStyles = createGlobalStyle`
   p {
     font-family: 'Quicksand-light', sans-serif;
   }
+
   a:hover {
     color: transparent;
     border: #FF652F 1px solid;
     border-radius: 10px;
   }
 
-  a{
-    color: transparent;
+
+
+  a {
+    color: #14A76C;
+    text-decoration: none;
   }
 
   .errorMessage {
     background:color: white;
   }
 
+  .postContainer:hover {
+    color:white;
+  }
+
+  .loader {
+    margin-top: 35vh
+  }
 
 `
 
@@ -84,7 +95,6 @@ function App() {
   return (
     <div className="App">
       <GlobalStyles />
-      <Header  />
       <Switch>
         <PrivateRoute path="/home" component={Home}/>
         <Route path="/login" component={Login}/>
@@ -92,8 +102,7 @@ function App() {
         <PrivateRoute path="/posts/:id" component={PostDetail} />
         <PrivateRoute path="/posts" component={PostList}/>
         <Route path="/register" component={Register}/>
-        <Route path="/">
-        </Route>
+        <Route path="/" component={Login}/>
       </Switch>
     </div>
   );
