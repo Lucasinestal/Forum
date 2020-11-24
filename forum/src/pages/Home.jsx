@@ -1,4 +1,4 @@
-import React,{useEffect, useState, useContext} from 'react'
+import React,{useEffect, useContext} from 'react'
 import { fetchMe } from './../apiCalls'
 import Rules from './../Rules'
 import styled from 'styled-components'
