@@ -147,7 +147,6 @@ export default function PostDetail(props) {
       },[props.location.pathname]);
     
     if(postDetails){
-      console.log(postDetails)
       return (
         <>
         <div>
