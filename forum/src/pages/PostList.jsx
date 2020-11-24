@@ -151,7 +151,7 @@ export default function PostList() {
                             </StyledLink>
 
                 } else {
-                return <StyledLink key={index} to={`/posts/${post.id}/`}>
+                return <StyledLink key={index} to={`/posts/${post.id}`}>
                         <PostContainer className="postContainer">
                         {post.title.length > 55 ? (
                             <ListItem >{Capitalize(post.title.slice(0, 55).replace(regex, '')) +"..."  }</ListItem>
