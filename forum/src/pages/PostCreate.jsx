@@ -6,18 +6,12 @@ import {fetchCategories} from './../apiCalls'
 import BtnRegister from './../components/btnRegister'
 import {createPost} from './../apiCalls'
 import Header from './../components/header'
-import { LoginContainer, Wrapper, LoginForm } from './Login'
+import { LoginContainer, Wrapper } from './Login'
 import styled from 'styled-components'
 
 const CreateWrapper = styled(Wrapper)``
 
 const CreateContainer = styled(LoginContainer)``
-
-const CreateForm = styled(LoginForm)``
-
-
-
-
 
 export default function PostCreate(props) {
     const [errorMsg, setErrorMsg] = useState("")
@@ -36,7 +30,6 @@ export default function PostCreate(props) {
                 ...state,
                 [event.target.name]: value
             })
-            console.log(state)
     }
 
     function handleSubmit(event){
@@ -51,14 +44,12 @@ export default function PostCreate(props) {
                     if(res.status === 400){
                         res.json().then((data) => {
                             event.target.reset();
-                            console.log(data)
                             setErrorMsg("Unable to create post with provided information")
                             
                         });
                         return;
                     }
                     res.json().then((data) => {
-                        console.log(data)
                         props.history.push("/posts")
                     });
                 });

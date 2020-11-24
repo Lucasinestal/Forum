@@ -11,6 +11,12 @@ padding: 8px 10rem;
  font-size: 1.5rem;
  box-shadow: 0 8px 6px -6px black;
  margin: 30px 10px;
+ @media (max-width: 425px) {
+    display: flex;
+    justify-content: center;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+ }
 `
 
 export default function btnRegister(props) {

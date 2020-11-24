@@ -1,8 +1,9 @@
-import React,{useEffect, useState} from 'react'
-import { fetchMe, fetchCountries } from './../apiCalls'
+import React,{useEffect, useState, useContext} from 'react'
+import { fetchMe } from './../apiCalls'
 import Rules from './../Rules'
 import styled from 'styled-components'
 import Header from './../components/header'
+import { UserContext } from '../UserContext'
 
 const HomeWrapper = styled.div`
     display:flex;
@@ -14,28 +15,30 @@ padding: 20px;
 `
 
 export default function Home() {
-    const [userData, setUserData] = useState("");
+
+    const {userDetails, setUserDetails} = useContext(UserContext);
 
     useEffect(() => {
-        fetchMe()
-        .then( res => res.json())
-        .then((data) => {
-            setUserData(data)
-            console.log(userData)
-        })
+        if(!userDetails){
+            fetchMe()
+            .then( res => res.json())
+            .then((data) => {
+                setUserDetails(data)
+            })
+        } 
       },[]);
 
 
 
-    if(userData){
+    if(userDetails){
         return (
             <>
             <Header />
             <HomeWrapper>
                 <UserContainer>
-                <h3>{userData.firstName} {userData.lastName}</h3>
-                <p>User ID: {userData.id}</p>
-                <p>Email: {userData.email}</p>
+                <h3>{userDetails.firstName} {userDetails.lastName}</h3>
+                <p>User ID: {userDetails.id}</p>
+                <p>Email: {userDetails.email}</p>
                 </UserContainer>
                 <div>
                    <Rules />

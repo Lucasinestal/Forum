@@ -6,9 +6,12 @@ import PostCreate from './pages/PostCreate';
 import PostDetail from './pages/PostDetail';
 import PostList from './pages/PostList';
 import Register from './pages/Register';
-import Header from './components/header';
-import Auth from './Auth';
-import styled,{ createGlobalStyle } from 'styled-components'
+import { UserContext } from './UserContext';
+import React, {useState} from 'react'
+
+
+import { createGlobalStyle } from 'styled-components'
+
 
 const GlobalStyles = createGlobalStyle`
   * { 
@@ -54,15 +57,9 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 10px;
   }
 
-
-
   a {
     color: #14A76C;
     text-decoration: none;
-  }
-
-  .errorMessage {
-    background:color: white;
   }
 
   .postContainer:hover {
@@ -78,6 +75,8 @@ const GlobalStyles = createGlobalStyle`
 
 function App() {
 
+  const[userDetails, setUserDetails] = useState(null)
+
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
     {...rest}
@@ -91,10 +90,13 @@ function App() {
     }
     />
     );
+  
+  
 
   return (
     <div className="App">
       <GlobalStyles />
+      <UserContext.Provider value={{userDetails, setUserDetails}}>
       <Switch>
         <PrivateRoute path="/home" component={Home}/>
         <Route path="/login" component={Login}/>
@@ -104,6 +106,7 @@ function App() {
         <Route path="/register" component={Register}/>
         <Route path="/" component={Login}/>
       </Switch>
+      </UserContext.Provider>
     </div>
   );
 

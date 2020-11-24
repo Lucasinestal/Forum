@@ -14,8 +14,8 @@ const HeaderContainer = styled.div`
 `
 const Ul = styled.ul`
 display:flex;
-flex-direction: flex-row;
-List-style: none;`
+flex-direction: row;
+list-style: none;`
 
 const Li = styled.li`
 color:#FF652F;

@@ -11,6 +11,9 @@ import HeaderRegister from './../components/headerRegister'
 
 const RegisterContainer = styled(LoginContainer)`
 margin-top: 4rem;
+@media (max-width: 425px) {
+    min-width: 95%;
+ }
 `
 
 const RegisterWrapper = styled(Wrapper)`
@@ -54,13 +57,11 @@ export default function Register(props) {
                     if(res.status === 400){
                         res.json().then((data) => {
                             event.target.reset();
-                            console.log(data)
                             setErrorMsg("Unable to register account with provided credentials")
                         });
                         return;
                     }
                     res.json().then((data) => {
-                        console.log(data)
                         props.history.push("/")
                     });
                 });

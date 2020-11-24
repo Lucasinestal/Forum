@@ -19,6 +19,7 @@ export default function InputFields(props) {
     return (
        <>
        <Input
+       
        type={props.type} 
        name={props.name} 
        placeholder={props.placeholder}

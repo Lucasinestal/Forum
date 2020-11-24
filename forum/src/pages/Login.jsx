@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useContext} from 'react'
 import InputFields from './../components/InputFields'
 import { authenticateUser } from './../apiCalls'
 import BtnRegister from './../components/btnRegister'
@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import ErrorMsg from './../components/ErrorMessage'
 import { Link } from 'react-router-dom' 
 import HeaderLogin from './../components/headerLogin'
+import { UserContext } from '../UserContext'
 
 
 export const LoginContainer = styled.div`
@@ -18,6 +19,9 @@ export const LoginContainer = styled.div`
         padding: 30px;
         border-radius: 10px;
       }
+      @media (max-width: 425px) {
+        min-width: 95%;
+     }
 `
 export const LoginForm = styled.form`
 display:flex;
@@ -39,7 +43,7 @@ padding: 10px 20px;
 
 export default function Login(props) {
 
-
+    const {setUserDetails} = useContext(UserContext);
     const [errorMsg, setErrorMsg] = useState("")
     const [state, setState] = useState({
         email: "",
@@ -52,7 +56,6 @@ export default function Login(props) {
             ...state,
             [event.target.name]: value
         })
-        console.log(state)
     }
 
     function handleSubmit(event){
@@ -64,7 +67,6 @@ export default function Login(props) {
                 if(res.status === 400){
                     res.json().then((data) => {
                         event.target.reset();
-                        console.log(data)
                         setErrorMsg('Unable to log in with provided credentials!')
                     });
                     return;
@@ -72,8 +74,8 @@ export default function Login(props) {
                 res.json().then((data) => {
                     const {token} = data;
                     localStorage.setItem("token", token)
+                    setUserDetails(null)
                     props.history.push("/home")
-                    console.log(data)
                     
                 });
             });
