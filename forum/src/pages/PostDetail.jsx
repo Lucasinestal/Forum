@@ -137,14 +137,12 @@ export default function PostDetail(props) {
         }
     
     useEffect( () => {
-      console.log(props.location.pathname)
       fetchPostDetails(props.location.pathname)
         .then( res => res.json())
         .then((data) => {
             setPostDetails(data)
             var id = props.location.pathname.slice(7);
             setParent(id)
-            console.log(parent)
         })
       },[props.location.pathname]);
     
