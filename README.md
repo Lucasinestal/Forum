@@ -2,7 +2,7 @@
 
 A basic forum web-application.
 
-## Built with
--ReactJS
--Styled Components
+## Built with 
+  - ReactJS
+  - Styled Components
 
