@@ -1,4 +1,8 @@
 # Forum school project
 
-A basic forum web-application built with ReactJS & Styled Components.
+A basic forum web-application.
+
+## Built with
+-ReactJS
+-Styled Components
 
